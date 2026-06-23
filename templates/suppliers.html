@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Suppliers{% endblock %}
+{% block page_title %}Supplier Directory{% endblock %}
+
+{% block content %}
+<div class="card card-info card-outline">
+  <div class="card-header">
+    <h3 class="card-title">All Suppliers</h3>
+    <div class="card-tools">
+      <form method="GET" action="{{ url_for('suppliers') }}" class="input-group input-group-sm" style="width: 300px;">
+        <input type="text" name="search" class="form-control float-right" placeholder="Search name, phone, email..." value="{{ search }}">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Tax ID</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for supplier in suppliers %}
+        <tr>
+          <td>{{ supplier.id }}</td>
+          <td><strong>{{ supplier.full_name }}</strong></td>
+          <td>{{ supplier.phone_number or '-' }}</td>
+          <td>{{ supplier.email or '-' }}</td>
+          <td>{{ supplier.tax_id or '-' }}</td>
+          <td>
+            {% if supplier.is_active %}
+              <span class="badge bg-success">Active</span>
+            {% else %}
+              <span class="badge bg-danger">Inactive</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center">No suppliers found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

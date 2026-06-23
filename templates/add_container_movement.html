@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Record Movement{% endblock %}
+{% block page_title %}Record Container Movement{% endblock %}
+
+{% block content %}
+<div class="card card-info">
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('add_container_movement') }}">
+      <div class="form-group">
+        <label>Movement Type</label>
+        <select name="movement_type" class="form-control" required>
+          <option value="SENT">Sent Out (to supplier/farm)</option>
+          <option value="RECEIVED">Received Back (from supplier/farm)</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Number of Containers</label>
+        <input type="number" name="quantity" class="form-control" required min="1">
+      </div>
+
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="movement_date" class="form-control" value="{{ today }}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" class="form-control" rows="3" placeholder="e.g., Batch #402, Driver Name..."></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-info">Record Movement</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

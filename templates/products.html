@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block page_title %}Product Inventory{% endblock %}
+
+{% block content %}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">All Products</h3>
+    <div class="card-tools">
+      <form method="GET" action="{{ url_for('products') }}" class="input-group input-group-sm" style="width: 250px;">
+        <input type="text" name="search" class="form-control float-right" placeholder="Search..." value="{{ search }}">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Category</th>
+          <th>Unit</th>
+          <th>Current Stock</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td><span class="badge bg-secondary">{{ product.category or 'General' }}</span></td>
+          <td>{{ product.unit }}</td>
+          <td>{{ product.current_quantity }}</td>
+          <td>
+            {% if product.current_quantity > 0 %}
+              <span class="badge bg-success">In Stock</span>
+            {% else %}
+              <span class="badge bg-danger">Out of Stock</span>
+            {% endif %}
+          </td>
+          <td>
+            <button class="btn btn-tool btn-sm"><i class="fas fa-pencil-alt"></i></button>
+            <button class="btn btn-tool btn-sm"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="text-center">No products found in the database.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

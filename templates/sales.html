@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Sales{% endblock %}
+{% block page_title %}Sales History{% endblock %}
+
+{% block content %}
+<div class="card card-warning card-outline">
+  <div class="card-header">
+    <h3 class="card-title">All Sales</h3>
+    <div class="card-tools">
+      <form method="GET" action="{{ url_for('sales') }}" class="input-group input-group-sm" style="width: 300px;">
+        <input type="text" name="search" class="form-control float-right" placeholder="Search product, client, phone..." value="{{ search }}">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Client Name</th>
+          <th>Client Phone</th>
+          <th>Quantity</th>
+          <th>Price/Unit</th>
+          <th>Total</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sale in sales %}
+        <tr>
+          <td>{{ sale.id }}</td>
+          <td>{{ sale.sale_date.strftime('%Y-%m-%d') if sale.sale_date else '-' }}</td>
+          <td><strong>{{ sale.product_name }}</strong></td>
+          <td>{{ sale.client_name }}</td>
+          <td>{{ sale.client_phone or '-' }}</td>
+          <td>{{ sale.quantity }}</td>
+          <td>{{ sale.price_per_unit }}</td>
+          <td><span class="badge bg-warning text-dark">{{ sale.total_price }}</span></td>
+          <td>{{ sale.notes or '-' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="9" class="text-center">No sales found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

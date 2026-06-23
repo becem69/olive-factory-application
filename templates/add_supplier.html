@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Add Supplier{% endblock %}
+{% block page_title %}Add New Supplier{% endblock %}
+
+{% block content %}
+<div class="card card-info">
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('add_supplier') }}">
+      <div class="form-group">
+        <label>Full Name / Company Name</label>
+        <input type="text" name="full_name" class="form-control" required placeholder="e.g., Tunisian Olive Co.">
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="text" name="phone_number" class="form-control" placeholder="+216 ...">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" class="form-control" placeholder="contact@example.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Physical Address</label>
+        <textarea name="address" class="form-control" rows="2"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Tax ID / Matricule Fiscale</label>
+        <input type="text" name="tax_id" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-info">Save Supplier</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

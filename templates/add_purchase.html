@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Record Purchase{% endblock %}
+{% block page_title %}Record Purchase (Add Stock){% endblock %}
+
+{% block content %}
+<div class="card card-success">
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('add_purchase') }}">
+      <div class="form-group">
+        <label>Product</label>
+        <select name="product_id" class="form-control" required>
+          <option value="">Select a product...</option>
+          {% for product in products %}
+          <option value="{{ product.id }}">{{ product.name }} (Unit: {{ product.unit }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Supplier</label>
+        <select name="supplier_id" class="form-control">
+          <option value="unknown">Unknown / Not Specified</option>
+          {% for supplier in suppliers %}
+          <option value="{{ supplier.id }}">{{ supplier.full_name }}</option>
+          {% endfor %}
+        </select>
+        <small class="form-text text-muted">Select "Unknown" if the supplier is not in the system.</small>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Quantity Purchased</label>
+            <input type="number" step="0.01" name="quantity" class="form-control" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Price per Unit</label>
+            <input type="number" step="0.01" name="price_per_unit" class="form-control" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="purchase_date" class="form-control" value="{{ today }}" required>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" class="form-control" rows="3" placeholder="Invoice number, batch details, etc."></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Confirm Purchase & Update Stock</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

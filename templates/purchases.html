@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Purchases{% endblock %}
+{% block page_title %}Purchase History{% endblock %}
+
+{% block content %}
+<div class="card card-success card-outline">
+  <div class="card-header">
+    <h3 class="card-title">All Purchases</h3>
+    <div class="card-tools">
+      <form method="GET" action="{{ url_for('purchases') }}" class="input-group input-group-sm" style="width: 300px;">
+        <input type="text" name="search" class="form-control float-right" placeholder="Search product, supplier, notes..." value="{{ search }}">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Product</th>
+          <th>Supplier</th>
+          <th>Quantity</th>
+          <th>Price/Unit</th>
+          <th>Total</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for purchase in purchases %}
+        <tr>
+          <td>{{ purchase.id }}</td>
+          <td>{{ purchase.purchase_date.strftime('%Y-%m-%d') if purchase.purchase_date else '-' }}</td>
+          <td><strong>{{ purchase.product_name }}</strong></td>
+          <td>
+            {% if purchase.supplier_name %}
+              {{ purchase.supplier_name }}
+            {% else %}
+              <span class="badge bg-secondary">Unknown</span>
+            {% endif %}
+          </td>
+          <td>{{ purchase.quantity }}</td>
+          <td>{{ purchase.price_per_unit }}</td>
+          <td><span class="badge bg-success">{{ purchase.total_price }}</span></td>
+          <td>{{ purchase.notes or '-' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="8" class="text-center">No purchases found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

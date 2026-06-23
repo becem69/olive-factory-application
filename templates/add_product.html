@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Define Product{% endblock %}
+{% block page_title %}Define New Product{% endblock %}
+
+{% block content %}
+<div class="card card-primary">
+  <div class="card-body">
+    <p class="text-muted">Use this form to define a new product in the system. To add stock, use the "Record Purchase" page.</p>
+    <form method="POST" action="{{ url_for('add_product') }}">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="name" class="form-control" required placeholder="e.g., Extra Virgin Olive Oil">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" class="form-control" placeholder="e.g., Oil, Packaging">
+      </div>
+      <div class="form-group">
+        <label>Unit of Measurement</label>
+        <select name="unit" class="form-control">
+          <option value="Liters">Liters</option>
+          <option value="Kg">Kilograms</option>
+          <option value="Pieces">Pieces</option>
+          <option value="Boxes">Boxes</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Define Product</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
