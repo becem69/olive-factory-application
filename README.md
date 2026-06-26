@@ -95,7 +95,7 @@ The project uses a remote MySQL database. Ensure you have the following tables c
 - `sales`
 - `container_movements`
 
-*Note: The SQL schema is provided in the `database_schema.sql` file (if included) or can be derived from the models in `app.py`.*
+*Note: The SQL schema is provided in the `benaichamelek_factory.sql` file or can be derived from the models in `app.py`.*
 
 ### 5. Run the Application
 ```bash
